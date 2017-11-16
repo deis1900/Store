@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:mvc="http://www.springframework.org/schema/mvc"
+             xmlns:tx="http://www.springframework.org/schema/tx"
+             xmlns:context="http://www.springframework.org/schema/context"
+             xsi:schemaLocation="http://www.springframework.org/schema/mvc
+             http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+                    http://www.springframework.org/schema/tx
+                    http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+                    http://www.springframework.org/schema/beans
+                    http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+                    http://www.springframework.org/schema/context
+                    http://www.springframework.org/schema/context/spring-context-3.1.xsd"
+             xmlns:beans="http://www.springframework.org/schema/beans">
+
+    <mvc:annotation-driven/>
+    <context:component-scan base-package="system"/>
+
+    <!--<mvc:view-controller path="/" view-name="product"/>-->
+    <mvc:view-controller path="/test/" view-name="test"/>
+
+    <beans:bean id="resolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass"
+                  value="org.springframework.web.servlet.view.JstlView">
+        </property>
+        <property name="prefix" value="/WEB-INF/pages/"/>
+        <property name="suffix" value=".jsp"/>
+    </beans:bean>
+
+
+    <beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+                destroy-method="close">
+        <beans:property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <beans:property name="url"
+                        value="jdbc:mysql://localhost:3306/Customers?useSSL=false"/>
+        <beans:property name="username" value="root"/>
+        <beans:property name="password" value="28885"/>
+    </beans:bean>
+
+    <!-- Hibernate 4 SessionFactory Bean definition -->
+    <beans:bean id="hibernate4AnnotatedSessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <beans:property name="dataSource" ref="dataSource"/>
+        <beans:property name="annotatedClasses">
+            <beans:list>
+                <beans:value>system.model.Customer</beans:value>
+                <beans:value>system.model.Product</beans:value>
+                <beans:value>system.model.Order</beans:value>
+            </beans:list>
+        </beans:property>
+        <beans:property name="hibernateProperties">
+            <beans:props>
+                <beans:prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</beans:prop>
+                <beans:prop key="hibernate.show_sql">true</beans:prop>
+                <beans:prop key="hibernate.hbm2ddl.auto">update</beans:prop>
+            </beans:props>
+        </beans:property>
+    </beans:bean>
+
+
+    <tx:annotation-driven transaction-manager="transactionManager" />
+
+    <beans:bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+
+    <beans:bean id="customerDao" class="system.dao.CustomerDaoImpl">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+    <beans:bean id="customerService" class="system.service.CustomerServiceImpl">
+        <property name="customerDao" ref="customerDao"/>
+    </beans:bean>
+
+    <beans:bean id="productDao" class="system.dao.ProductDaoImpl">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+    <beans:bean id="productService" class="system.service.ProductServiceImpl">
+        <property name="productDao" ref="productDao"/>
+    </beans:bean>
+
+    <beans:bean id="orderDao" class="system.dao.OrderDaoImpl">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+    <beans:bean id="orderService" class="system.service.OrderServiceImpl">
+        <property name="orderDao" ref="orderDao"/>
+    </beans:bean>
+
+    <context:component-scan base-package="system"/>
+
+</beans:beans>
