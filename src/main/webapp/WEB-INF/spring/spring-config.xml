@@ -17,12 +17,10 @@
     <mvc:annotation-driven/>
     <context:component-scan base-package="system"/>
 
-    <!--<mvc:view-controller path="/" view-name="product"/>-->
     <mvc:view-controller path="/test/" view-name="test"/>
 
     <beans:bean id="resolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="viewClass"
-                  value="org.springframework.web.servlet.view.JstlView">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView">
         </property>
         <property name="prefix" value="/WEB-INF/pages/"/>
         <property name="suffix" value=".jsp"/>
@@ -33,13 +31,14 @@
                 destroy-method="close">
         <beans:property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <beans:property name="url"
-                        value="jdbc:mysql://localhost:3306/Customers?useSSL=false"/>
+                        value="jdbc:mysql://localhost:3306/Store?useSSL=false"/>
         <beans:property name="username" value="root"/>
         <beans:property name="password" value="28885"/>
     </beans:bean>
 
     <!-- Hibernate 4 SessionFactory Bean definition -->
-    <beans:bean id="hibernate4AnnotatedSessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+    <beans:bean id="hibernate4AnnotatedSessionFactory"
+                class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <beans:property name="dataSource" ref="dataSource"/>
         <beans:property name="annotatedClasses">
             <beans:list>
@@ -52,13 +51,13 @@
             <beans:props>
                 <beans:prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</beans:prop>
                 <beans:prop key="hibernate.show_sql">true</beans:prop>
-                <beans:prop key="hibernate.hbm2ddl.auto">update</beans:prop>
+                <beans:prop key="hibernate.hbm2ddl.auto">create-drop</beans:prop>
             </beans:props>
         </beans:property>
     </beans:bean>
 
 
-    <tx:annotation-driven transaction-manager="transactionManager" />
+    <tx:annotation-driven transaction-manager="transactionManager"/>
 
     <beans:bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
         <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>

@@ -9,12 +9,12 @@ import system.model.Product;
 import java.util.List;
 
 @Service
-public class ProductServiceImpl implements ProductService{
+public class ProductServiceImpl implements ProductService {
 
     private ProductDao productDao;
 
     @Autowired
-    public void setProductDao(ProductDao productDao){
+    public void setProductDao(ProductDao productDao) {
         this.productDao = productDao;
     }
 
@@ -26,7 +26,7 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     @Transactional
-    public void updateProduct (Product product) {
+    public void updateProduct(Product product) {
         this.productDao.updateProduct(product);
     }
 
@@ -38,11 +38,12 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     @Transactional
-    public Product getProductById(int id) {
+    public Product getProductById(Integer id) {
         return this.productDao.getProductById(id);
     }
 
     @Override
-    public void removeProduct(int id) { this.productDao.removeProduct(id);
+    public void removeProduct(Integer id) {
+        this.productDao.removeProduct(id);
     }
 }

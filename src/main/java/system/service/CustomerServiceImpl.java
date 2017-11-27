@@ -38,11 +38,12 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     @Transactional
-    public Customer getCustomerById(int id) {
+    public Customer getCustomerById(Integer id) {
         return this.customerDao.getCustomerById(id);
     }
 
     @Override
-    public void removeCustomer(int id) { this.customerDao.removeCustomer(id);
+    public void removeCustomer(Integer id) {
+        this.customerDao.removeCustomer(id);
     }
 }

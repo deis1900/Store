@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: denis
-  Date: 16.10.17
-  Time: 16:06
-  To change this template use File | Settings | File Templates.
---%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
@@ -37,7 +30,6 @@
                 </td>
                 <td>
                     <form:input path="id" readonly="true" size="8"  disabled="true" />
-                        <%--<form:hidden path="id" />--%>
                 </td>
             </tr>
         </c:if>

@@ -11,13 +11,12 @@ import system.model.Product;
 import system.service.ProductService;
 
 @Controller
-@RequestMapping(name = "/product")
+@RequestMapping("/product")
 public class ProductController {
 
     private ProductService productService;
 
     @Autowired
-    //@Qualifier(productService)
     public ProductController(ProductService productService) {
         this.productService = productService;
     }
@@ -29,28 +28,28 @@ public class ProductController {
         return "product";
     }
 
-    @RequestMapping(value= "/product/add", method = RequestMethod.POST)
-    public String addProduct(@ModelAttribute("product") Product product){
+    @RequestMapping(value = "/product/add", method = RequestMethod.POST)
+    public String addProduct(@ModelAttribute("product") Product product) {
 
-        if(product.getId() == 0){
+        if (product.getId() == null) {
             this.productService.addProduct(product);
-        }else{
+        } else {
             this.productService.updateProduct(product);
         }
 
-        return "redirect:/products";
+        return "redirect:/product/products";
 
     }
 
     @RequestMapping("/remove/{id}")
-    public String removeProduct(@PathVariable("id") int id){
+    public String removeProduct(@PathVariable("id") Integer id) {
 
         this.productService.removeProduct(id);
-        return "redirect:/products";
+        return "redirect:/product/products";
     }
 
     @RequestMapping("/edit/{id}")
-    public String editProduct(@PathVariable("id") int id, Model model){
+    public String editProduct(@PathVariable("id") Integer id, Model model) {
         model.addAttribute("product", this.productService.getProductById(id));
         model.addAttribute("listProducts", this.productService.listProducts());
         return "product";

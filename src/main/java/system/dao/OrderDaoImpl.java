@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
-import system.model.Customer;
 import system.model.Order;
-import system.model.Product;
 
 import java.util.List;
 
@@ -33,16 +31,15 @@ public class OrderDaoImpl implements OrderDao {
     public void addOrder(Order order) {
         Session session = this.sessionFactory.getCurrentSession();
         session.persist(order);
-        logger.info("Order saved successfully, Order Details= "+order);
+        logger.info("Order saved successfully, Order Details= " + order);
     }
 
     @Override
     @Transactional
     public void updateOrder(Order order) {
         Session session = this.sessionFactory.getCurrentSession();
-                
         session.update(order);
-        logger.info("Order updated successfully, Order Details= "+ order);
+        logger.info("Order updated successfully, Order Details= " + order);
     }
 
     @SuppressWarnings("unchecked")
@@ -50,61 +47,34 @@ public class OrderDaoImpl implements OrderDao {
     @Transactional
     public List<Order> listOrders() {
         Session session = this.sessionFactory.getCurrentSession();
-        List<Order> ordersList = session.createQuery("FROM Orders").list();
-        for(Order o : ordersList){
-            logger.info("Order List:"+ o);
+        List<Order> ordersList = session.createQuery("FROM Order").list();
+        for (Order o : ordersList) {
+            logger.info("Order List:" + o);
         }
         return ordersList;
     }
 
     @Override
     @Transactional
-    public Order getOrderById(int id) {
+    public Order getOrderById(Integer id) {
         Session session = this.sessionFactory.getCurrentSession();
-        Order order = (Order) session.load(Order.class, new Integer(id));
-        logger.info("Order loaded successfully, Order details= "+ order);
+        Order order = (Order) session.load(Order.class, id);
+        logger.info("Order loaded successfully, Order details= " + order);
         return order;
     }
 
     @Override
     @Transactional
-    public List<Order> getOrderByCustomer(Customer customer){
+    public void removeOrder(Integer id) {
         Session session = this.sessionFactory.getCurrentSession();
-        String hql = "FROM Orders o" +
-                " INNER JOIN Customers c ON o.CUSTOMER_ID = c.id" +
-                " INNER JOIN Products p on o.PRODUCT_ID = p.id" +
-                " WHERE c." + customer.getId() + "";
-        List<Order> orderList = session.createQuery(hql).list();
-        for(Order o: orderList){
-            logger.info("Order List:" + o);
-        }
-        return orderList;
-    }
-
-    @Override
-    @Transactional
-    public List<Order> getOrderByProduct (Product product){
-        Session session = this.sessionFactory.getCurrentSession();
-        String hql = "FROM Orders o" +
-                " INNER JOIN Customers c ON o.CUSTOMER_ID = c.id" +
-                " INNER JOIN Products p on o.PRODUCT_ID = p.id" +
-                " WHERE c." + product.getId() + " ";
-        List<Order> orderList = session.createQuery(hql).list();
-        for(Order o: orderList){
-            logger.info("Order List:" + o);
-        }
-        return orderList;
-    }
-
-    @Override
-    @Transactional
-    public void removeOrder(int id) {
-        Session session = this.sessionFactory.getCurrentSession();
-        Order order = (Order) session.load(Order.class, new Integer(id));
-        if(null != order){
+        Order order = (Order) session.load(Order.class, id);
+        if (null != order) {
             session.delete(order);
+            logger.info("Order deleted successfully, order details= " + order);
+        }else{
+            logger.info("Order not found.");
         }
-        logger.info("Order deleted successfully, order details= "+ order);
+
     }
 
 }

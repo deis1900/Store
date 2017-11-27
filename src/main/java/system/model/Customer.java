@@ -1,8 +1,6 @@
 package system.model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -12,7 +10,7 @@ public class Customer {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column
     private String name;
@@ -26,26 +24,26 @@ public class Customer {
     @Column
     private String email;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
-    private List<Order> orders = new ArrayList<Order>();
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "customer")
+    private List<Order> order;
 
-    public Customer(){
+    public Customer() {
 
     }
 
-    public Customer(int id, String name, String surname, String phone, String email) {
-        this.id = id;
+    public Customer(String name, String surname, String phone, String email, List<Order> order) {
         this.name = name;
         this.surname = surname;
         this.phone = phone;
         this.email = email;
+        this.order = order;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -81,12 +79,12 @@ public class Customer {
         this.email = email;
     }
 
-    public List<Order> getOrders() {
-        return orders;
+    public List<Order> getOrder() {
+        return order;
     }
 
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
+    public void setOrder(List<Order> order) {
+        this.order = order;
     }
 
     @Override
@@ -97,7 +95,7 @@ public class Customer {
                 ", surname='" + surname + '\'' +
                 ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +
-                ", orders=" + orders +
+                ", orders=" + order +
                 '}';
     }
 }

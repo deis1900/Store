@@ -32,7 +32,7 @@ public class CustomerDaoImpl implements CustomerDao {
     public void addCustomer(Customer customer) {
         Session session = this.sessionFactory.getCurrentSession();
         session.persist(customer);
-        logger.info("Customer saved successfully, Customer Details="+customer);
+        logger.info("Customer saved successfully, Customer Details=" + customer);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class CustomerDaoImpl implements CustomerDao {
     public void updateCustomer(Customer customer) {
         Session session = this.sessionFactory.getCurrentSession();
         session.update(customer);
-        logger.info("Customer updated successfully, Customer Details="+customer);
+        logger.info("Customer updated successfully, Customer Details=" + customer);
     }
 
     @SuppressWarnings("unchecked")
@@ -48,31 +48,31 @@ public class CustomerDaoImpl implements CustomerDao {
     @Transactional
     public List<Customer> listCustomers() {
         Session session = this.sessionFactory.getCurrentSession();
-        List<Customer> customersList = session.createQuery("FROM Customer").list();
-        for(Customer c : customersList){
-            logger.info("Customer List:"+c);
+        List<Customer> customersList = session.createQuery("FROM Customers").list();
+        for (Customer c : customersList) {
+            logger.info("Customer List:" + c);
         }
         return customersList;
     }
 
     @Override
     @Transactional
-    public Customer getCustomerById(int id) {
+    public Customer getCustomerById(Integer id) {
         Session session = this.sessionFactory.getCurrentSession();
         Customer customer = (Customer) session.load(Customer.class, new Integer(id));
-        logger.info("Customer loaded successfully, Customer details="+customer);
+        logger.info("Customer loaded successfully, Customer details=" + customer);
         return customer;
     }
 
     @Override
     @Transactional
-    public void removeCustomer(int id) {
+    public void removeCustomer(Integer id) {
         Session session = this.sessionFactory.getCurrentSession();
         Customer customer = (Customer) session.load(Customer.class, new Integer(id));
-        if(null != customer){
+        if (null != customer) {
             session.delete(customer);
         }
-        logger.info("Customer deleted successfully, customer details="+customer);
+        logger.info("Customer deleted successfully, customer details=" + customer);
     }
 
 }

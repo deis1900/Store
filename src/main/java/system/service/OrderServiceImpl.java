@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import system.dao.OrderDao;
-import system.model.Customer;
 import system.model.Order;
 import system.model.Product;
 
@@ -16,7 +15,7 @@ public class OrderServiceImpl implements OrderService {
     private OrderDao orderDao;
 
     @Autowired
-    public void setOrderDao(OrderDao orderDao){
+    public void setOrderDao(OrderDao orderDao) {
         this.orderDao = orderDao;
     }
 
@@ -40,22 +39,13 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public Order getOrderById(int id) {
+    public Order getOrderById(Integer id) {
         return this.orderDao.getOrderById(id);
     }
 
     @Override
-    public void removeOrder(int id) { this.orderDao.removeOrder(id);}
-
-    @Override
-    @Transactional
-    public List<Order> getOrderByCustomer(Customer customer){
-        return this.orderDao.getOrderByCustomer(customer);
+    public void removeOrder(Integer id) {
+        this.orderDao.removeOrder(id);
     }
 
-    @Override
-    @Transactional
-    public List<Order> getOrderByProduct (Product product){
-        return orderDao.getOrderByProduct(product);
-    }
 }

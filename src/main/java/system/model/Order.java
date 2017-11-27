@@ -1,34 +1,37 @@
 package system.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "Orders")
+@Table(name = "Order")
 public class Order {
 
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
-    @ManyToOne(fetch = FetchType.LAZY/*, cascade = {CascadeType.MERGE, CascadeType.PERSIST}*/)
-    @JoinColumn(name = "CUSTOMER_ID")
-    private Customer customer;
-
-    @ManyToMany(fetch = FetchType.LAZY/*, cascade = {CascadeType.MERGE, CascadeType.PERSIST}*/)
-    @JoinColumn(name = "PRODUCT_ID")
-    private List<Product> product;
+    private Integer id;
 
     @Column(name = "ORDER_DATE")
     @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd-MM-yyyy hh:mm")
     private Date orderDate;
 
     @Column(name = "AMOUNT")
     private double amount;
 
-    public Order(){
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "Customer_ID")
+    private Customer customer;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "Product_ID")
+    private List<Product> product;
+
+    public Order() {
     }
 
     public Order(Customer customer, List<Product> product, Date orderDate, double amount) {
@@ -38,11 +41,11 @@ public class Order {
         this.amount = amount;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -66,7 +69,7 @@ public class Order {
         return orderDate;
     }
 
-    public void setOrderDate(Date orderDate) {
+    public void setOrderDate(Date date) {
         this.orderDate = orderDate;
     }
 

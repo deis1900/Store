@@ -15,7 +15,7 @@ import java.util.List;
 @Repository
 @Transactional
 @EnableTransactionManagement
-public class ProductDaoImpl implements ProductDao{
+public class ProductDaoImpl implements ProductDao {
 
     private static final Logger logger = LoggerFactory.getLogger(ProductDaoImpl.class);
 
@@ -31,15 +31,15 @@ public class ProductDaoImpl implements ProductDao{
     public void addProduct(Product product) {
         Session session = this.sessionFactory.getCurrentSession();
         session.persist(product);
-        logger.info("Customer saved successfully, Customer Details= "+ product);
+        logger.info("Customer saved successfully, Customer Details= " + product);
     }
 
     @Override
     @Transactional
-    public void updateProduct (Product product) {
+    public void updateProduct(Product product) {
         Session session = this.sessionFactory.getCurrentSession();
         session.update(product);
-        logger.info("Product updated successfully, Product Details= "+ product);
+        logger.info("Product updated successfully, Product Details= " + product);
     }
 
     @SuppressWarnings("unchecked")
@@ -48,32 +48,31 @@ public class ProductDaoImpl implements ProductDao{
     public List<Product> listProducts() {
         Session session = this.sessionFactory.getCurrentSession();
         List<Product> productsList = session.createQuery("FROM Products").list();
-        for(Product p : productsList){
-            logger.info("Product List: "+ p);
+        for (Product p : productsList) {
+            logger.info("Product List: " + p);
         }
         return productsList;
     }
 
     @Override
     @Transactional
-    public Product getProductById(int id) {
+    public Product getProductById(Integer id) {
         Session session = this.sessionFactory.getCurrentSession();
-        Product product = (Product) session.load(Product.class, new Integer(id));
-        logger.info("Product loaded successfully, Product details= "+ product);
+        Product product = (Product) session.load(Product.class, id);
+        logger.info("Product loaded successfully, Product details= " + product);
         return product;
     }
 
     @Override
     @Transactional
-    public void removeProduct(int id) {
+    public void removeProduct(Integer id) {
         Session session = this.sessionFactory.getCurrentSession();
-        Product product = (Product) session.load(Product.class, new Integer(id));
-        if(null != product){
+        Product product = (Product) session.load(Product.class, id);
+        if (null != product) {
             session.delete(product);
         }
         logger.info("Product deleted successfully, Product details= " + product);
     }
-
 
 
 }

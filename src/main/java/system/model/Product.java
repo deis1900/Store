@@ -1,7 +1,6 @@
 package system.model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -11,7 +10,7 @@ public class Product {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column
     private String type;
@@ -20,7 +19,7 @@ public class Product {
     private String size;
 
     @Column
-    private String  material;
+    private String material;
 
     @Column
     private String color;
@@ -29,24 +28,25 @@ public class Product {
     private long dateOfLastChange;
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "product")
-    private List<Order> orders = new ArrayList<Order>();
+    private List<Order> order;
 
     public Product() {
     }
 
-    public Product(String type, String size, String material, String color, long dateOfLastChange) {
+    public Product(String type, String size, String material, String color, long dateOfLastChange, List<Order> order) {
         this.type = type;
         this.size = size;
         this.material = material;
         this.color = color;
         this.dateOfLastChange = dateOfLastChange;
+        this.order = order;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -90,6 +90,14 @@ public class Product {
         this.dateOfLastChange = dateOfLastChange;
     }
 
+    public List<Order> getOrder() {
+        return order;
+    }
+
+    public void setOrders(List<Order> order) {
+        this.order = order;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
@@ -99,6 +107,7 @@ public class Product {
                 ", material='" + material + '\'' +
                 ", color='" + color + '\'' +
                 ", dateOfLastChange=" + dateOfLastChange +
+                ", orders=" + order +
                 '}';
     }
 }
