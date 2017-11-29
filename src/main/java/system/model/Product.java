@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "Products")
+@Table(name = "Product")
 public class Product {
 
     @Id
@@ -27,19 +27,15 @@ public class Product {
     @Column
     private long dateOfLastChange;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "product")
-    private List<Order> order;
-
     public Product() {
     }
 
-    public Product(String type, String size, String material, String color, long dateOfLastChange, List<Order> order) {
+    public Product(String type, String size, String material, String color, long dateOfLastChange) {
         this.type = type;
         this.size = size;
         this.material = material;
         this.color = color;
         this.dateOfLastChange = dateOfLastChange;
-        this.order = order;
     }
 
     public Integer getId() {
@@ -90,14 +86,6 @@ public class Product {
         this.dateOfLastChange = dateOfLastChange;
     }
 
-    public List<Order> getOrder() {
-        return order;
-    }
-
-    public void setOrders(List<Order> order) {
-        this.order = order;
-    }
-
     @Override
     public String toString() {
         return "Product{" +
@@ -107,7 +95,6 @@ public class Product {
                 ", material='" + material + '\'' +
                 ", color='" + color + '\'' +
                 ", dateOfLastChange=" + dateOfLastChange +
-                ", orders=" + order +
                 '}';
     }
 }

@@ -6,10 +6,42 @@
 <head>
     <title>Customer Page</title>
     <style type="text/css">
-        .tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;}
-        .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#fff;}
-        .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#f0f0f0;}
-        .tg .tg-4eph{background-color:#f9f9f9}
+        .tg {
+            border-collapse: collapse;
+            border-spacing: 0;
+            border-color: #ccc;
+        }
+
+        .tg td {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            padding: 10px 5px;
+            border-style: solid;
+            border-width: 1px;
+            overflow: hidden;
+            word-break: normal;
+            border-color: #ccc;
+            color: #333;
+            background-color: #fff;
+        }
+
+        .tg th {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            font-weight: normal;
+            padding: 10px 5px;
+            border-style: solid;
+            border-width: 1px;
+            overflow: hidden;
+            word-break: normal;
+            border-color: #ccc;
+            color: #333;
+            background-color: #f0f0f0;
+        }
+
+        .tg .tg-4eph {
+            background-color: #f9f9f9
+        }
     </style>
 </head>
 <body>
@@ -17,7 +49,7 @@
     Add a Customer
 </h1>
 
-<c:url var="addAction" value="/customer/customer/add" ></c:url>
+<c:url var="addAction" value="/customer/customer/add"></c:url>
 
 <form:form action="${addAction}" commandName="customer">
     <table>
@@ -29,7 +61,7 @@
                     </form:label>
                 </td>
                 <td>
-                    <form:input path="id" readonly="true" size="8"  disabled="true" />
+                    <form:input path="id" readonly="true" size="8" disabled="true"/>
                 </td>
             </tr>
         </c:if>
@@ -40,7 +72,7 @@
                 </form:label>
             </td>
             <td>
-                <form:input path="name" />
+                <form:input path="name"/>
             </td>
         </tr>
         <tr>
@@ -50,7 +82,7 @@
                 </form:label>
             </td>
             <td>
-                <form:input path="surname" />
+                <form:input path="surname"/>
             </td>
         </tr>
         <tr>
@@ -60,7 +92,7 @@
                 </form:label>
             </td>
             <td>
-                <form:input path="phone" />
+                <form:input path="phone"/>
             </td>
         </tr>
         <tr>
@@ -70,18 +102,18 @@
                 </form:label>
             </td>
             <td>
-                <form:input path="email" />
+                <form:input path="email"/>
             </td>
         </tr>
         <tr>
             <td colspan="2">
                 <c:if test="${!empty customer.name}">
                     <input type="submit"
-                           value="<spring:message text="Edit Customer"/>" />
+                           value="<spring:message text="Edit Customer"/>"/>
                 </c:if>
                 <c:if test="${empty customer.name}">
                     <input type="submit"
-                           value="<spring:message text="Add Customer"/>" />
+                           value="<spring:message text="Add Customer"/>"/>
                 </c:if>
             </td>
         </tr>
@@ -97,6 +129,11 @@
             <th width="120">Customer Surname</th>
             <th width="120">Customer Phone</th>
             <th width="120">Customer email</th>
+            <tr1>
+                <th width="80">Invoice ID</th>
+                <th width="120">Invoice Amound</th>
+                <th width="120">Invoice date</th>
+            </tr1>
             <th width="60">Edit</th>
             <th width="60">Delete</th>
         </tr>
@@ -107,8 +144,15 @@
                 <td>${customer.surname}</td>
                 <td>${customer.phone}</td>
                 <td>${customer.email}</td>
-                <td><a href="<c:url value='/customer/edit/${customer.id}' />" >Edit</a></td>
-                <td><a href="<c:url value='/customer/remove/${customer.id}' />" >Delete</a></td>
+                <c:forEach items="${customer.invoices}" var="invoices">
+                    <tr1>
+                        <td>${invoices.id}</td>
+                        <td>${invoices.amount}</td>
+                        <td>${invoices.checkDate}</td>
+                    </tr1>
+                </c:forEach>
+                <td><a href="<c:url value='/customer/edit/${customer.id}' />">Edit</a></td>
+                <td><a href="<c:url value='/customer/remove/${customer.id}' />">Delete</a></td>
             </tr>
         </c:forEach>
     </table>

@@ -3,41 +3,42 @@ package system.model;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "Order")
-public class Order {
+@Table(name = "Invoice")
+public class Invoice {
 
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "ORDER_DATE")
+    @Column(name = "Invoice_DATE")
     @Temporal(TemporalType.DATE)
-    @DateTimeFormat(pattern = "dd-MM-yyyy hh:mm")
-    private Date orderDate;
+    @DateTimeFormat(pattern = "dd-MM-yyyy hh:mm:ss")
+    private Date checkDate;
 
     @Column(name = "AMOUNT")
     private double amount;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "Customer_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "Customer_id")
     private Customer customer;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "Product_ID")
-    private List<Product> product;
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @JoinTable(name = "Product")
+    private List<Product> products = new ArrayList<Product>();
 
-    public Order() {
+    public Invoice() {
     }
 
-    public Order(Customer customer, List<Product> product, Date orderDate, double amount) {
+    public Invoice(Customer customer, List<Product> products, Date checkDate, double amount) {
         this.customer = customer;
-        this.product = product;
-        this.orderDate = orderDate;
+        this.products = products;
+        this.checkDate = checkDate;
         this.amount = amount;
     }
 
@@ -57,20 +58,16 @@ public class Order {
         this.customer = customer;
     }
 
-    public List<Product> getProduct() {
-        return product;
+    public List<Product> getProducts() {
+        return products;
     }
 
-    public void setProduct(List<Product> product) {
-        this.product = product;
+    public Date getCheckDate() {
+        return checkDate;
     }
 
-    public Date getOrderDate() {
-        return orderDate;
-    }
-
-    public void setOrderDate(Date date) {
-        this.orderDate = orderDate;
+    public void setCheckDate(Date date) {
+        this.checkDate = checkDate;
     }
 
     public double getAmount() {
@@ -83,11 +80,10 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order{" +
+        return "Invoice{" +
                 "id=" + id +
-                ", customer=" + customer +
-                ", product=" + product +
-                ", orderDate=" + orderDate +
+                ", product=" + products +
+                ", checkDate=" + checkDate +
                 ", amount=" + amount +
                 '}';
     }

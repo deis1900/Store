@@ -47,7 +47,7 @@ public class ProductDaoImpl implements ProductDao {
     @Transactional
     public List<Product> listProducts() {
         Session session = this.sessionFactory.getCurrentSession();
-        List<Product> productsList = session.createQuery("FROM Products").list();
+        List<Product> productsList = session.createQuery("FROM Product").list();
         for (Product p : productsList) {
             logger.info("Product List: " + p);
         }

@@ -1,14 +1,15 @@
 package system.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "Customers")
+@Table(name = "Customer")
 public class Customer {
 
     @Id
-    @Column(name = "id")
+    @Column(name = "Customer_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
@@ -24,19 +25,22 @@ public class Customer {
     @Column
     private String email;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "customer")
-    private List<Order> order;
+    @OneToMany(mappedBy = "customer",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY)
+    private List<Invoice> invoices = new ArrayList<Invoice>();
 
     public Customer() {
 
     }
 
-    public Customer(String name, String surname, String phone, String email, List<Order> order) {
+    public Customer(String name, String surname, String phone, String email, List<Invoice> invoices) {
         this.name = name;
         this.surname = surname;
         this.phone = phone;
         this.email = email;
-        this.order = order;
+        this.invoices = invoices;
     }
 
     public Integer getId() {
@@ -79,12 +83,22 @@ public class Customer {
         this.email = email;
     }
 
-    public List<Order> getOrder() {
-        return order;
+    public List<Invoice> getInvoices() {
+        return invoices;
     }
 
-    public void setOrder(List<Order> order) {
-        this.order = order;
+    public void addInvoice(Invoice invoice) {
+        invoices.add( invoice );
+        invoice.setCustomer( this );
+    }
+
+    public void removeInvoice(Invoice invoice) {
+        invoices.remove(invoice);
+        invoice.setCustomer(null);
+    }
+
+    public void setInvoices(List<Invoice> invoices) {
+        this.invoices = invoices;
     }
 
     @Override
@@ -95,7 +109,7 @@ public class Customer {
                 ", surname='" + surname + '\'' +
                 ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +
-                ", orders=" + order +
+                ", invoices=" + invoices +
                 '}';
     }
 }

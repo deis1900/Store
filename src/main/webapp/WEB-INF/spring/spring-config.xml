@@ -44,14 +44,14 @@
             <beans:list>
                 <beans:value>system.model.Customer</beans:value>
                 <beans:value>system.model.Product</beans:value>
-                <beans:value>system.model.Order</beans:value>
+                <beans:value>system.model.Invoice</beans:value>
             </beans:list>
         </beans:property>
         <beans:property name="hibernateProperties">
             <beans:props>
                 <beans:prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</beans:prop>
                 <beans:prop key="hibernate.show_sql">true</beans:prop>
-                <beans:prop key="hibernate.hbm2ddl.auto">create-drop</beans:prop>
+                <beans:prop key="hibernate.hbm2ddl.auto">update</beans:prop>
             </beans:props>
         </beans:property>
     </beans:bean>
@@ -77,11 +77,11 @@
         <property name="productDao" ref="productDao"/>
     </beans:bean>
 
-    <beans:bean id="orderDao" class="system.dao.OrderDaoImpl">
+    <beans:bean id="invoiceDao" class="system.dao.InvoiceDaoImpl">
         <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
     </beans:bean>
-    <beans:bean id="orderService" class="system.service.OrderServiceImpl">
-        <property name="orderDao" ref="orderDao"/>
+    <beans:bean id="invoiceService" class="system.service.InvoiceServiceImpl">
+        <property name="invoiceDao" ref="invoiceDao"/>
     </beans:bean>
 
     <context:component-scan base-package="system"/>

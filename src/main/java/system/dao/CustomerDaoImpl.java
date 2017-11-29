@@ -48,7 +48,7 @@ public class CustomerDaoImpl implements CustomerDao {
     @Transactional
     public List<Customer> listCustomers() {
         Session session = this.sessionFactory.getCurrentSession();
-        List<Customer> customersList = session.createQuery("FROM Customers").list();
+        List<Customer> customersList = session.createQuery("FROM Customer").list();
         for (Customer c : customersList) {
             logger.info("Customer List:" + c);
         }
