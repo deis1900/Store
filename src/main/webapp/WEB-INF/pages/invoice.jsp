@@ -79,7 +79,7 @@
         <tr>
             <td>
                 <form:label path="products">
-                    <spring:message text="Product"/>
+                    <spring:message text="List Products"/>
                 </form:label>
             </td>
             <td>
@@ -130,36 +130,36 @@
             <th width="120">Customer Surname</th>
             <th width="120">Customer Phone</th>
             <th width="120">Customer email</th>
-            <th width="80">Product ID</th>
+            <th width="120">Product ID</th>
             <th width="120">Product Type</th>
             <th width="120">Product Material</th>
             <th width="120">Product Size</th>
             <th width="120">Product Color</th>
             <th width="120">Product Date of last change</th>
-            <th width="80">Invoice Date</th>
             <th width="120">Invoice Amount</th>
+            <th width="80">Invoice Date</th>
             <th width="60">Edit</th>
             <th width="60">Delete</th>
         </tr>
-        <c:forEach items="${listInvoices}" var="invoices">
+        <c:forEach items="${listInvoices}" var="invoice">
             <tr>
-                <td>${invoices.id}</td>
-                <td>${invoices.customer.name}</td>
-                <td>${invoices.customer.surname}</td>
-                <td>${invoices.customer.email}</td>
-                <td>${invoices.customer.phone}</td>
-                <c:forEach items="${invoice.products}" var="product">
-                    <li>${product.toString()}</li>
-                    <li>${product.type}</li>
-                    <li>${product.size}</li>
-                    <li>${product.material}</li>
-                    <li>${product.color}</li>
-                    <li>${product.dateOfLastChange}</li>
-                </c:forEach>
-                <td>${invoices.checkDate}</td>
-                <td>${invoices.amount}</td>
-                <td><a href="<c:url value='/invoices/edit/${invoices.id}' />">Edit</a></td>
-                <td><a href="<c:url value='/invoices/remove/${invoices.id}' />">Delete</a></td>
+                <td>${invoice.id}</td>
+                <td>${invoice.customer.name}</td>
+                <td>${invoice.customer.surname}</td>
+                <td>${invoice.customer.phone}</td>
+                <td>${invoice.customer.email}</td>
+                    <c:forEach items="${invoice.products}" var="product">
+                        <td>${product.id}</td>
+                        <td>${product.type}</td>
+                        <td>${product.material}</td>
+                        <td>${product.size}</td>
+                        <td>${product.color}</td>
+                        <td>${product.dateOfLastChange}</td>
+                    </c:forEach>
+                <td>${invoice.amount}</td>
+                <td>${invoice.checkDate}</td>
+                <td><a href="<c:url value='/invoices/edit/${invoice.id}' />">Edit</a></td>
+                <td><a href="<c:url value='/invoices/remove/${invoice.id}' />">Delete</a></td>
             </tr>
         </c:forEach>
     </table>
