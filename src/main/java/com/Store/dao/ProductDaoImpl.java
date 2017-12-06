@@ -1,4 +1,4 @@
-package system.dao;
+package com.Store.dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
-import system.model.Product;
+import com.Store.model.Product;
 
 import java.util.List;
 

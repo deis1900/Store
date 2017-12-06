@@ -1,12 +1,11 @@
-package system.controller;
+package com.Store.controller;
 
+import com.Store.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import system.model.Customer;
-import system.model.Invoice;
-import system.service.CustomerService;
+import com.Store.model.Customer;
 
 
 @Controller
@@ -29,7 +28,6 @@ public class CustomerController {
     @RequestMapping(value = "/customers", method = RequestMethod.GET)
     public String listCustomers(Model model) {
         model.addAttribute("customer", new Customer());
-        model.addAttribute("invoice", new Invoice());
         model.addAttribute("listCustomers", this.customerService.listCustomers());
         return "customer";
     }

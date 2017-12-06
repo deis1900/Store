@@ -1,6 +1,6 @@
-package system.service;
+package com.Store.service;
 
-import system.model.Invoice;
+import com.Store.model.Invoice;
 
 import java.util.List;
 
@@ -15,4 +15,6 @@ public interface InvoiceService {
     Invoice getInvoiceById(Integer id);
 
     void removeInvoice(Integer id);
+
+    List<Invoice> getCustomerWithId(Integer id);
 }

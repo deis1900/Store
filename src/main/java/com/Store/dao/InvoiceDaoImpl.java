@@ -1,5 +1,6 @@
-package system.dao;
+package com.Store.dao;
 
+import com.Store.model.Invoice;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -8,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
-import system.model.Invoice;
 
 import java.util.List;
 
@@ -74,7 +74,14 @@ public class InvoiceDaoImpl implements InvoiceDao {
         }else{
             logger.info("Invoice not found.");
         }
-
     }
-
+    @Override
+    @Transactional
+    public List<Invoice> getCustomerWithID(Integer id){
+        Session session = this.sessionFactory.getCurrentSession();
+        List<Invoice> invoicesWithCustomerId =
+                session.createQuery("From Invoice " +
+                        "WHERE CUSTOMER_ID = '" + id + "' ").list();
+        return invoicesWithCustomerId;
+    }
 }

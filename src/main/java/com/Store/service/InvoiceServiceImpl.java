@@ -1,10 +1,10 @@
-package system.service;
+package com.Store.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import system.dao.InvoiceDao;
-import system.model.Invoice;
+import com.Store.dao.InvoiceDao;
+import com.Store.model.Invoice;
 
 import java.util.List;
 
@@ -33,11 +33,6 @@ public class InvoiceServiceImpl implements InvoiceService {
     @Override
     @Transactional
     public List<Invoice> listInvoices() {
-        for(Invoice invoice: invoiceDao.listInvoices()) {
-            System.out.println(invoice.toString());
-            System.out.println(invoice.getCustomer().toString());
-        }
-
         return this.invoiceDao.listInvoices();
     }
 
@@ -50,6 +45,12 @@ public class InvoiceServiceImpl implements InvoiceService {
     @Override
     public void removeInvoice(Integer id) {
         this.invoiceDao.removeInvoice(id);
+    }
+
+    @Override
+    @Transactional
+    public List<Invoice> getCustomerWithId(Integer id){
+        return this.invoiceDao.getCustomerWithID(id);
     }
 
 }

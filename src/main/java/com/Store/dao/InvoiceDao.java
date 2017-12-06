@@ -1,6 +1,6 @@
-package system.dao;
+package com.Store.dao;
 
-import system.model.Invoice;
+import com.Store.model.Invoice;
 
 import java.util.List;
 
@@ -11,6 +11,8 @@ public interface InvoiceDao {
     void updateInvoice(Invoice invoice);
 
     List<Invoice> listInvoices();
+
+    List<Invoice> getCustomerWithID(Integer id);
 
     Invoice getInvoiceById(Integer id);
 

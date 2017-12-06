@@ -1,31 +1,27 @@
-package system.model;
+package com.Store.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "Product")
-public class Product {
+public class Product implements Serializable {
 
     @Id
-    @Column(name = "id")
+    @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column
     private String type;
-
-    @Column
     private String size;
-
-    @Column
     private String material;
-
-    @Column
     private String color;
-
-    @Column
     private long dateOfLastChange;
+
+    @ManyToMany(mappedBy = "products", cascade = CascadeType.ALL)
+    private List<Invoice> invoices = new ArrayList<Invoice>();
 
     public Product() {
     }
@@ -86,15 +82,7 @@ public class Product {
         this.dateOfLastChange = dateOfLastChange;
     }
 
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", type='" + type + '\'' +
-                ", size='" + size + '\'' +
-                ", material='" + material + '\'' +
-                ", color='" + color + '\'' +
-                ", dateOfLastChange=" + dateOfLastChange +
-                '}';
+    public List<Invoice> getInvoices() {
+        return invoices;
     }
 }

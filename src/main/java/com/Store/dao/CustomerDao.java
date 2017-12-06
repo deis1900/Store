@@ -1,12 +1,11 @@
-package system.service;
+package com.Store.dao;
 
-import system.model.Customer;
-
+import com.Store.model.Customer;
 
 import java.util.List;
 
 
-public interface CustomerService {
+public interface CustomerDao {
 
     void addCustomer(Customer customer);
 
@@ -17,5 +16,6 @@ public interface CustomerService {
     Customer getCustomerById(Integer id);
 
     void removeCustomer(Integer id);
+
 
 }

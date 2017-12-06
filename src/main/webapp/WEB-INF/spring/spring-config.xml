@@ -15,7 +15,7 @@
              xmlns:beans="http://www.springframework.org/schema/beans">
 
     <mvc:annotation-driven/>
-    <context:component-scan base-package="system"/>
+    <context:component-scan base-package="com.Store"/>
 
     <mvc:view-controller path="/test/" view-name="test"/>
 
@@ -25,7 +25,6 @@
         <property name="prefix" value="/WEB-INF/pages/"/>
         <property name="suffix" value=".jsp"/>
     </beans:bean>
-
 
     <beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
                 destroy-method="close">
@@ -42,9 +41,9 @@
         <beans:property name="dataSource" ref="dataSource"/>
         <beans:property name="annotatedClasses">
             <beans:list>
-                <beans:value>system.model.Customer</beans:value>
-                <beans:value>system.model.Product</beans:value>
-                <beans:value>system.model.Invoice</beans:value>
+                <beans:value>com.Store.model.Customer</beans:value>
+                <beans:value>com.Store.model.Product</beans:value>
+                <beans:value>com.Store.model.Invoice</beans:value>
             </beans:list>
         </beans:property>
         <beans:property name="hibernateProperties">
@@ -63,27 +62,24 @@
         <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
     </beans:bean>
 
-    <beans:bean id="customerDao" class="system.dao.CustomerDaoImpl">
+    <beans:bean id="customerDao" class="com.Store.dao.CustomerDaoImpl">
         <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
     </beans:bean>
-    <beans:bean id="customerService" class="system.service.CustomerServiceImpl">
+    <beans:bean id="customerService" class="com.Store.service.CustomerServiceImpl">
         <property name="customerDao" ref="customerDao"/>
     </beans:bean>
 
-    <beans:bean id="productDao" class="system.dao.ProductDaoImpl">
+    <beans:bean id="productDao" class="com.Store.dao.ProductDaoImpl">
         <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
     </beans:bean>
-    <beans:bean id="productService" class="system.service.ProductServiceImpl">
+    <beans:bean id="productService" class="com.Store.service.ProductServiceImpl">
         <property name="productDao" ref="productDao"/>
     </beans:bean>
 
-    <beans:bean id="invoiceDao" class="system.dao.InvoiceDaoImpl">
+    <beans:bean id="invoiceDao" class="com.Store.dao.InvoiceDaoImpl">
         <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
     </beans:bean>
-    <beans:bean id="invoiceService" class="system.service.InvoiceServiceImpl">
+    <beans:bean id="invoiceService" class="com.Store.service.InvoiceServiceImpl">
         <property name="invoiceDao" ref="invoiceDao"/>
     </beans:bean>
-
-    <context:component-scan base-package="system"/>
-
 </beans:beans>

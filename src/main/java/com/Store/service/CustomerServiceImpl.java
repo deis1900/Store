@@ -1,10 +1,10 @@
-package system.service;
+package com.Store.service;
 
+import com.Store.dao.CustomerDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import system.dao.CustomerDao;
-import system.model.Customer;
+import com.Store.model.Customer;
 
 import java.util.List;
 

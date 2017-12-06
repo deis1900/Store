@@ -1,5 +1,7 @@
-package system.controller;
+package com.Store.controller;
 
+import com.Store.model.Invoice;
+import com.Store.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,9 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import system.model.Invoice;
-import system.model.Product;
-import system.service.InvoiceService;
+import com.Store.service.InvoiceService;
 
 @Controller
 @RequestMapping("/invoice")
@@ -33,8 +33,7 @@ public class InvoiceController {
     @RequestMapping(value = "/invoice/add", method = RequestMethod.POST)
     public String addInvoice(@ModelAttribute("invoice") Invoice invoice) {
 
-        if (invoice.getId() == null
-                /*&& invoice.getProduct() == null*/) {
+        if (invoice.getId() == null) {
             this.invoiceService.addInvoice(invoice);
         } else {
             this.invoiceService.updateInvoice(invoice);
@@ -56,6 +55,19 @@ public class InvoiceController {
         model.addAttribute("invoice", this.invoiceService.getInvoiceById(id));
         model.addAttribute("listInvoices", this.invoiceService.listInvoices());
         return "invoice";
+    }
+
+    @RequestMapping("/{id}")
+    public String ClientOrder(@PathVariable("id") Integer id, Model model){
+        model.addAttribute("invoice", new Invoice());
+        model.addAttribute("product", new Product());
+        model.addAttribute("invoices", this.invoiceService.getCustomerWithId(id));
+        if(invoiceService.getInvoiceById(id) == null){
+            return "No customer with this "+ id + "";
+        }else {
+            return "CustomerID";
+        }
+
     }
 
 }

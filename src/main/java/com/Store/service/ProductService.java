@@ -1,6 +1,6 @@
-package system.service;
+package com.Store.service;
 
-import system.model.Product;
+import com.Store.model.Product;
 
 import java.util.List;
 

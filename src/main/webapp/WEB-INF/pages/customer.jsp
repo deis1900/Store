@@ -129,11 +129,6 @@
             <th width="120">Customer Surname</th>
             <th width="120">Customer Phone</th>
             <th width="120">Customer email</th>
-            <tr1>
-                <th width="80">Invoice ID</th>
-                <th width="120">Invoice Amound</th>
-                <th width="120">Invoice date</th>
-            </tr1>
             <th width="60">Edit</th>
             <th width="60">Delete</th>
         </tr>
@@ -144,13 +139,6 @@
                 <td>${customer.surname}</td>
                 <td>${customer.phone}</td>
                 <td>${customer.email}</td>
-                <c:forEach items="${customer.invoices}" var="invoices">
-                    <tr1>
-                        <td>${invoices.id}</td>
-                        <td>${invoices.amount}</td>
-                        <td>${invoices.checkDate}</td>
-                    </tr1>
-                </c:forEach>
                 <td><a href="<c:url value='/customer/edit/${customer.id}' />">Edit</a></td>
                 <td><a href="<c:url value='/customer/remove/${customer.id}' />">Delete</a></td>
             </tr>
