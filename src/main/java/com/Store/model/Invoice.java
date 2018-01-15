@@ -1,5 +1,6 @@
 package com.Store.model;
 
+import com.Store.service.CustomerServiceImpl;
 import com.Store.service.ProductServiceImpl;
 import org.hibernate.annotations.NaturalId;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -49,8 +50,9 @@ public class Invoice implements Serializable {
         return customer;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setCustomer(Integer customerId) {
+
+        this.customer = new CustomerServiceImpl().getCustomerById(customerId);
     }
 
     public double getAmount() {
@@ -80,8 +82,9 @@ public class Invoice implements Serializable {
     }
 
     public void removeProducts(List<Integer> productsId) {
+        ProductServiceImpl productServiceimpl = new ProductServiceImpl();
         for (Integer p: productsId){
-            products.remove(new ProductServiceImpl().getProductById(p));
+            products.remove(productServiceimpl.getProductById(p));
         }
     }
 
