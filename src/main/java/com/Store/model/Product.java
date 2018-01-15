@@ -19,9 +19,9 @@ public class Product implements Serializable {
     private String material;
     private String color;
     private long dateOfLastChange;
-
-    @ManyToMany(mappedBy = "products", cascade = CascadeType.ALL)
-    private List<Invoice> invoices = new ArrayList<Invoice>();
+//
+//    @ManyToMany(mappedBy = "products", cascade = CascadeType.ALL)
+//    private List<Invoice> invoices = new ArrayList<Invoice>();
 
     public Product() {
     }
@@ -77,12 +77,12 @@ public class Product implements Serializable {
     public long getDateOfLastChange() {
         return dateOfLastChange;
     }
-
-    public void setDateOfLastChange(long dateOfLastChange) {
-        this.dateOfLastChange = dateOfLastChange;
-    }
-
-    public List<Invoice> getInvoices() {
-        return invoices;
-    }
+//
+//    public void setDateOfLastChange(long dateOfLastChange) {
+//        this.dateOfLastChange = dateOfLastChange;
+//    }
+//
+//    public List<Invoice> getInvoices() {
+//        return invoices;
+//    }
 }

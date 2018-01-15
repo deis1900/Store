@@ -76,8 +76,9 @@ public class Invoice implements Serializable {
     }
 
     public void setProducts(List<Integer> productsId) {
+        ProductServiceImpl productServiceImpl = new ProductServiceImpl();
         for (Integer p: productsId){
-            products.add(new ProductServiceImpl().getProductById(p));
+            products.add(productServiceImpl.getProductById(p));
         }
     }
 

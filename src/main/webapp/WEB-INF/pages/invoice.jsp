@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib prefix="th" uri="http://www.springframework.org/tags/form" %>
 <%@ page session="false" %>
 <html>
 <head>
@@ -62,7 +63,7 @@
                 </td>
                 <td>
                     <form:input path="id" readonly="true" size="8" disabled="true"/>
-                        <%--<form:hidden path="id" />--%>
+                    <%--<form:hidden path="id"/>--%>
                 </td>
             </tr>
         </c:if>
@@ -74,18 +75,19 @@
             </td>
             <td>
                 <form:input path="customer"/>
+
             </td>
+                <td if="${fields.hasErrors('customer')}" errors="*{customer}">Customer Error</td>
         </tr>
-        <tr>
-            <td>
-                <form:label path="products">
-                    <spring:message text="List Products"/>
-                </form:label>
-            </td>
-            <td>
-                <form:input path="products"/>
-            </td>
-        </tr>
+            <%--Вместо List<Products>--%>
+            <%--<form:label path="products">--%>
+            <%--<spring:message text="List Products"/>--%>
+            <%--</form:label>--%>
+            <%--</td>--%>
+            <%--<td>--%>
+            <%--<form:input path="products" list/>--%>
+            <%--</td>--%>
+            <%--</tr>--%>
         <tr>
             <td>
                 <form:label path="checkDate">
@@ -95,6 +97,7 @@
             <td>
                 <form:input path="checkDate"/>
             </td>
+                <%--<td th:if="${#fields.hasErrors('checkDate')}" th:errors="*{checkDate}">Date Error</td>--%>
         </tr>
         <tr>
             <td>
@@ -105,6 +108,7 @@
             <td>
                 <form:input path="amount"/>
             </td>
+                <%--<td if="${fields.hasErrors('amount')}" th:errors="*{amount}">Amount Error</td>--%>
         </tr>
         <tr>
             <td colspan="2">
@@ -116,6 +120,11 @@
                     <input type="submit"
                            value="<spring:message text="Add Invoice"/>"/>
                 </c:if>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <h4></h4>
             </td>
         </tr>
     </table>
@@ -148,14 +157,14 @@
                 <td>${invoice.customer.surname}</td>
                 <td>${invoice.customer.phone}</td>
                 <td>${invoice.customer.email}</td>
-                    <c:forEach items="${invoice.products}" var="product">
-                        <td>${product.id}</td>
-                        <td>${product.type}</td>
-                        <td>${product.material}</td>
-                        <td>${product.size}</td>
-                        <td>${product.color}</td>
-                        <td>${product.dateOfLastChange}</td>
-                    </c:forEach>
+                    <%--<c:forEach items="${invoice.products}" var="product">--%>
+                    <%--<td>${product.id}</td>--%>
+                    <%--<td>${product.type}</td>--%>
+                    <%--<td>${product.material}</td>--%>
+                    <%--<td>${product.size}</td>--%>
+                    <%--<td>${product.color}</td>--%>
+                    <%--<td>${product.dateOfLastChange}</td>--%>
+                    <%--</c:forEach>--%>
                 <td>${invoice.amount}</td>
                 <td>${invoice.checkDate}</td>
                 <td><a href="<c:url value='/invoices/edit/${invoice.id}' />">Edit</a></td>

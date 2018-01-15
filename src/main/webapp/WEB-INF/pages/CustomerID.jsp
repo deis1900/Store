@@ -77,15 +77,15 @@
             <td>${invoice.amount}</td>
             <td>${invoice.checkDate}</td>
 
-            <c:forEach items="${invoice.products}" var="product">
-                <td>${product.id}</td>
-                <td>${product.type}</td>
-                <td>${product.material}</td>
-                <td>${product.size}</td>
-                <td>${product.color}</td>
-                <td>${product.dateOfLastChange}</td>
-                </tr>
-            </c:forEach>
+            <%--<c:forEach items="${invoice.products}" var="product">--%>
+                <%--<td>${product.id}</td>--%>
+                <%--<td>${product.type}</td>--%>
+                <%--<td>${product.material}</td>--%>
+                <%--<td>${product.size}</td>--%>
+                <%--<td>${product.color}</td>--%>
+                <%--<td>${product.dateOfLastChange}</td>--%>
+                <%--</tr>--%>
+            <%--</c:forEach>--%>
     </c:forEach>
     </c:if>
 </table>
